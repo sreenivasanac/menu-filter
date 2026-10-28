@@ -55,9 +55,9 @@ export class MenuFilter {
 		return Array.from(this.container.querySelectorAll<HTMLElement>('.menu-item'));
 	}
 
-	/** Visible, enabled items: the ones the arrow keys and Enter act on. */
+	/** Visible, actionable items (not disabled, not labels): the ones the arrow keys and Enter act on. */
 	private navigable(): HTMLElement[] {
-		return this.items().filter((el) => !el.hasClass(HIDDEN_CLASS) && !el.hasClass('is-disabled'));
+		return this.items().filter((el) => !el.hasClass(HIDDEN_CLASS) && !el.hasClass('is-disabled') && !el.hasClass('is-label'));
 	}
 
 	private readonly applyFilter = (): void => {
@@ -74,7 +74,9 @@ export class MenuFilter {
 		const navigable = this.navigable();
 		this.selected = Math.min(index, navigable.length - 1);
 		for (const el of this.items()) el.removeClass('selected');
-		navigable[this.selected]?.addClass('selected');
+		const current = navigable[this.selected];
+		current?.addClass('selected');
+		current?.scrollIntoView({ block: 'nearest' });
 	}
 
 	/** Runs an item through the menu's own handler; a synthetic DOM click from a keydown handler is ignored. */
