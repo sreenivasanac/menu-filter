@@ -1,0 +1,20 @@
+/* Menu Filter: filter row at the top of long menus. Theme variables only. */
+.menu-filter-row {
+	padding: var(--size-4-1) var(--size-4-1) var(--size-4-2);
+	margin-bottom: var(--size-4-1);
+	border-bottom: 1px solid var(--background-modifier-border);
+}
+
+.menu-filter-row input {
+	width: 100%;
+	box-sizing: border-box;
+	font-size: var(--font-ui-small);
+}
+
+.menu-filter-hidden {
+	display: none !important;
+}
+
+.menu-filter-warning .setting-item-name {
+	color: var(--text-warning);
+}
