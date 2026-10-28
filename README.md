@@ -4,6 +4,8 @@ Long right-click menus are slow to scan. Menu Filter adds a filter box to the to
 
 Right-click a folder, type `mov`, and the menu narrows to **Move folder to…**. Press <kbd>Enter</kbd> to run it.
 
+![Typing "open" in a file's right-click menu narrows it to the five Open commands](https://raw.githubusercontent.com/sreenivasanac/menu-filter/main/docs/demo.gif)
+
 ## How it works
 
 - The filter box appears on any menu with at least 8 items (configurable). It works on menus from the file explorer, the editor, tabs and other plugins.
@@ -15,6 +17,7 @@ Right-click a folder, type `mov`, and the menu narrows to **Move folder to…**.
 ## Requirements
 
 - **Native menus must be off.** With native menus on, the operating system draws the menus, so plugins can't change them. Turn them off in **Settings → Appearance → Native menus**. On macOS native menus are on by default, and the plugin's settings page warns you when they are.
+- Obsidian 1.13 or later.
 - Desktop only.
 
 ## Settings
@@ -32,10 +35,10 @@ To install it manually, copy `main.js`, `manifest.json` and `styles.css` from th
 ## Development
 
 ```bash
-pnpm install
-pnpm run dev    # rebuilds main.js on every change
-pnpm run build  # type-check and production build
-pnpm run lint
+npm install
+npm run dev    # rebuilds main.js on every change
+npm run build  # type-check and production build
+npm run lint
 ```
 
 ## License

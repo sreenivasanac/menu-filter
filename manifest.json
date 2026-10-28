@@ -2,7 +2,7 @@
 	"id": "menu-filter",
 	"name": "Menu Filter",
 	"version": "1.0.0",
-	"minAppVersion": "1.5.0",
+	"minAppVersion": "1.13.0",
 	"description": "Adds a type-to-filter box to long context menus. Type a few letters to narrow the menu and press Enter to run the highlighted item.",
 	"author": "Sreenivasan AC",
 	"authorUrl": "https://github.com/sreenivasanac",

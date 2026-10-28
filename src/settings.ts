@@ -1,4 +1,4 @@
-import { App, Platform, PluginSettingTab, Setting } from 'obsidian';
+import { App, Platform, PluginSettingTab, type SettingDefinitionItem } from 'obsidian';
 import type MenuFilterPlugin from './main';
 
 export interface MenuFilterSettings {
@@ -15,45 +15,37 @@ export const DEFAULT_SETTINGS: MenuFilterSettings = {
  * reach the DOM, so they can't be filtered. The setting is unset by default,
  * which means native menus on macOS and DOM menus elsewhere.
  */
-export function nativeMenusEnabled(app: App): boolean {
+function nativeMenusEnabled(app: App): boolean {
 	const vault = app.vault as unknown as { getConfig?(key: string): unknown };
 	const value = vault.getConfig?.('nativeMenus');
 	return value === true || (value == null && Platform.isMacOS);
 }
 
+/** Declarative settings: PluginSettingTab reads and saves `plugin.settings[key]` itself. */
 export class MenuFilterSettingTab extends PluginSettingTab {
-	constructor(
-		app: App,
-		private readonly plugin: MenuFilterPlugin,
-	) {
+	constructor(app: App, plugin: MenuFilterPlugin) {
 		super(app, plugin);
 	}
 
-	display(): void {
-		const { containerEl } = this;
-		containerEl.empty();
-
-		if (nativeMenusEnabled(this.app)) {
-			new Setting(containerEl)
-				.setName('Native menus are turned on')
-				.setDesc(
-					'Menus are drawn by the operating system and cannot be filtered. ' +
-						'Turn off native menus in Settings → Appearance to use this plugin.',
-				)
-				.setClass('menu-filter-warning');
-		}
-
-		new Setting(containerEl)
-			.setName('Minimum menu size')
-			.setDesc('Show the filter box only on menus with at least this many items.')
-			.addSlider((slider) =>
-				slider
-					.setLimits(2, 20, 1)
-					.setValue(this.plugin.settings.minItems)
-					.onChange(async (value) => {
-						this.plugin.settings.minItems = value;
-						await this.plugin.saveSettings();
-					}),
-			);
+	getSettingDefinitions(): SettingDefinitionItem[] {
+		return [
+			{
+				type: 'group',
+				cls: 'menu-filter-warning',
+				visible: () => nativeMenusEnabled(this.app),
+				items: [
+					{
+						name: 'Native menus are turned on',
+						desc: 'Menus are drawn by the operating system and cannot be filtered. Turn off native menus in Settings → Appearance to use this plugin.',
+						searchable: false,
+					},
+				],
+			},
+			{
+				name: 'Minimum menu size',
+				desc: 'Show the filter box only on menus with at least this many items.',
+				control: { type: 'slider', key: 'minItems', min: 2, max: 20, step: 1, defaultValue: DEFAULT_SETTINGS.minItems },
+			},
+		];
 	}
 }
