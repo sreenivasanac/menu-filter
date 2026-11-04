@@ -28,7 +28,7 @@ Right-click a folder, type `mov`, and the menu narrows to **Move folder to…**.
 
 ## Installation
 
-Once the plugin is approved, install it from **Settings → Community plugins → Browse** and search for "Menu Filter".
+Install it from **Settings → Community plugins → Browse**: search for "Menu Filter", or open [its page in the plugin directory](https://community.obsidian.md/plugins/menu-filter).
 
 To install it manually, copy `main.js`, `manifest.json` and `styles.css` from the [latest release](https://github.com/sreenivasanac/menu-filter/releases/latest) into `<your vault>/.obsidian/plugins/menu-filter/`, then enable the plugin.
 
